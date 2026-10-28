@@ -8,7 +8,8 @@
 [![CI](https://github.com/ElijahZhao/ppgr-predictor/actions/workflows/ci.yml/badge.svg)](https://github.com/ElijahZhao/ppgr-predictor/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![XGBoost](https://img.shields.io/badge/XGBoost-3.4-EB6E4B?style=for-the-badge)](https://xgboost.readthedocs.io/)
-[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC_BY--NC--SA_4.0-lightgrey?style=for-the-badge)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+[![License: MIT (code)](https://img.shields.io/badge/License-MIT_(code)-yellow?style=for-the-badge)](LICENSE)
+[![License: CC BY-NC-SA 4.0 (derived data)](https://img.shields.io/badge/License-CC_BY--NC--SA_4.0_(derived_data)-lightgrey?style=for-the-badge)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 [![Parent repo](https://img.shields.io/badge/Parent-MetaNutri--AI--10b981?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ElijahZhao/MetaNutri---AI-)
 
 </div>
@@ -182,6 +183,12 @@ python src/train_final.py        # export the deployable models
 ```
 
 ## Data and license
+
+**Licensing is layered — see [NOTICE.md](NOTICE.md).** Code (`app.py`,
+`inference.py`, `src/`, `test_app.py`) is **MIT**. Everything computed from the
+datasets (`model/*.json`, `experiments/*.csv`, `assets/*`, `reports/*`) is
+**CC BY-NC-SA 4.0**. The repository-level [LICENSE](LICENSE) file is the MIT
+text and covers the code layer only.
 
 [CGMacros](https://physionet.org/content/cgmacros/1.0.0/) — PhysioNet,
 DOI [10.13026/3z8q-x658](https://doi.org/10.13026/3z8q-x658), licensed
