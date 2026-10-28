@@ -54,6 +54,12 @@ from the parent module, so the two copies can be compared byte-for-byte. Its §9
 refers to the pipeline as `research/`; in this deployment the same scripts sit at
 the repository root (`bash src/run_all.sh`).
 
+**Drift check.** CI runs [`scripts/check_sync.py`](scripts/check_sync.py), which
+resolves the parent repository's tree through the GitHub API and compares git blob
+SHAs for the 32 curated files. A red *Sync (parent module)* job means the parent
+moved ahead or a copy was edited here — re-copy the file, or update the script if
+the curated set itself is meant to change.
+
 ## Results (LOPO, Pearson *r*)
 
 | Target | Breakfast only (n=423) | All meals (n=1,557) |

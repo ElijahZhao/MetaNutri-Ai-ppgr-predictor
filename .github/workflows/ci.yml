@@ -30,3 +30,21 @@ jobs:
       # render. This is the exact command documented in the README.
       - name: Smoke test (AppTest)
         run: python test_app.py
+
+  sync:
+    name: Sync (parent module)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      # Compares the curated copies with the parent repository by git blob SHA.
+      # The token keeps the single API request well clear of the 60/hour
+      # unauthenticated limit that shared runner IPs can exhaust.
+      - name: Compare curated files with the parent repository
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python scripts/check_sync.py
