@@ -49,6 +49,11 @@ figures) is generated from the parent repo's `research/experiments/*.csv` and mu
 match its [technical report](reports/technical_report.pdf). If the two disagree,
 the parent repository wins and this repo is regenerated.
 
+**Report layout.** `reports/technical_report.md` and its PDF are copied verbatim
+from the parent module, so the two copies can be compared byte-for-byte. Its §9
+refers to the pipeline as `research/`; in this deployment the same scripts sit at
+the repository root (`bash src/run_all.sh`).
+
 ## Results (LOPO, Pearson *r*)
 
 | Target | Breakfast only (n=423) | All meals (n=1,557) |
