@@ -2,6 +2,10 @@
 
 <div align="center">
 
+<p align="right">
+  <strong>English</strong> | <a href="README.zh-CN.md">简体中文</a>
+</p>
+
 **Postprandial glucose-response (PPGR) prediction — XGBoost + leave-one-subject-out validation**
 
 [![Live demo](https://img.shields.io/badge/Live_demo-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://metanutri-ai-ppgr-predictor.streamlit.app/)
