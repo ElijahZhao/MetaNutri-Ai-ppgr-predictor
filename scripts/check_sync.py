@@ -107,7 +107,7 @@ def fetch_parent_tree(ref: str, attempts: int = 3) -> dict[str, str]:
     )
     headers = {
         "Accept": "application/vnd.github+json",
-        "User-Agent": "ppgr-predictor-sync-check",
+        "User-Agent": "metanutri-sync-check",
     }
     token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
     if token:

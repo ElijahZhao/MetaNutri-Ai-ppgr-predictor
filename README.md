@@ -9,7 +9,7 @@
 **Postprandial glucose-response (PPGR) prediction — XGBoost + leave-one-subject-out validation**
 
 [![Live demo](https://img.shields.io/badge/Live_demo-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://metanutri-ai-ppgr-predictor.streamlit.app/)
-[![CI](https://github.com/ElijahZhao/ppgr-predictor/actions/workflows/ci.yml/badge.svg)](https://github.com/ElijahZhao/ppgr-predictor/actions/workflows/ci.yml)
+[![CI](https://github.com/ElijahZhao/MetaNutri-Ai-ppgr-predictor/actions/workflows/ci.yml/badge.svg)](https://github.com/ElijahZhao/MetaNutri-Ai-ppgr-predictor/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![XGBoost](https://img.shields.io/badge/XGBoost-3.4-EB6E4B?style=for-the-badge)](https://xgboost.readthedocs.io/)
 [![License: MIT (code)](https://img.shields.io/badge/License-MIT_(code)-yellow?style=for-the-badge)](LICENSE)
@@ -29,7 +29,7 @@ made for a person the model has never seen.
 **Parent platform (full-stack project):** <https://meta-nutri-ai.vercel.app/> ·
 source [`MetaNutri---AI-`](https://github.com/ElijahZhao/MetaNutri---AI-)
 
-**Sister demo:** [`nutri-rag`](https://github.com/ElijahZhao/nutri-rag) — an
+**Sister demo:** [`MetaNutri-Ai-RAG`](https://github.com/ElijahZhao/MetaNutri-Ai-RAG) — an
 independent RAG Q&A demo over the Chinese Food Composition Tables and the 2022
 Dietary Guidelines for Chinese Residents, with its own retrieval pipeline and a
 built-in 50-item evaluation: <https://metanutri-ai-rag-question-answering.streamlit.app>.
@@ -41,7 +41,7 @@ This repo is the **demo half** of a two-repository project, and a sibling of a
 [`MetaNutri---AI-`](https://github.com/ElijahZhao/MetaNutri---AI-), holds the full
 project: a full-stack platform *and* the `research/` module where the models below
 were trained and evaluated. This repo holds only what the deployed demo needs.
-The sibling, [`nutri-rag`](https://github.com/ElijahZhao/nutri-rag), is an
+The sibling, [`MetaNutri-Ai-RAG`](https://github.com/ElijahZhao/MetaNutri-Ai-RAG), is an
 **independent** RAG showcase: it is not exported from the parent — it shares only
 the MetaNutri brand, the same underlying nutrition data sources and the MIT
 license family.

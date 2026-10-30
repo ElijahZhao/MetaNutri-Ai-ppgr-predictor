@@ -9,7 +9,7 @@
 **餐后血糖反应（PPGR）预测 —— XGBoost + 留一被试交叉验证**
 
 [![在线演示](https://img.shields.io/badge/Streamlit-%E5%9C%A8%E7%BA%BF%E6%BC%94%E7%A4%BA-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://metanutri-ai-ppgr-predictor.streamlit.app/)
-[![CI](https://github.com/ElijahZhao/ppgr-predictor/actions/workflows/ci.yml/badge.svg)](https://github.com/ElijahZhao/ppgr-predictor/actions/workflows/ci.yml)
+[![CI](https://github.com/ElijahZhao/MetaNutri-Ai-ppgr-predictor/actions/workflows/ci.yml/badge.svg)](https://github.com/ElijahZhao/MetaNutri-Ai-ppgr-predictor/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![XGBoost](https://img.shields.io/badge/XGBoost-3.4-EB6E4B?style=for-the-badge)](https://xgboost.readthedocs.io/)
 [![License: MIT（代码）](https://img.shields.io/badge/License-MIT_%28%E4%BB%A3%E7%A0%81%29-yellow?style=for-the-badge)](LICENSE)
@@ -26,12 +26,12 @@
 **父平台（全栈项目）：** <https://meta-nutri-ai.vercel.app/> ·
 源码 [`MetaNutri---AI-`](https://github.com/ElijahZhao/MetaNutri---AI-)
 
-**姊妹演示：** [`nutri-rag`](https://github.com/ElijahZhao/nutri-rag)——独立的 RAG 问答演示，基于《中国食物成分表》与《中国居民膳食指南（2022）》，自带检索管线与 50 条内置评测：<https://metanutri-ai-rag-question-answering.streamlit.app>。
+**姊妹演示：** [`MetaNutri-Ai-RAG`](https://github.com/ElijahZhao/MetaNutri-Ai-RAG)——独立的 RAG 问答演示，基于《中国食物成分表》与《中国居民膳食指南（2022）》，自带检索管线与 50 条内置评测：<https://metanutri-ai-rag-question-answering.streamlit.app>。
 
 ## 这个仓库是什么（以及不是什么）
 
 本仓库是两仓库项目的**演示半区**，同时是三仓库项目中的一员。父仓库
-[`MetaNutri---AI-`](https://github.com/ElijahZhao/MetaNutri---AI-) 持有完整项目：全栈平台 *和* 用于训练与评估下列模型的 `research/` 模块。本仓库只存放部署演示所需的内容。姊妹仓库 [`nutri-rag`](https://github.com/ElijahZhao/nutri-rag) 是**独立**的 RAG 展示：它不从父仓库导出——与父仓库共享的只有 MetaNutri 品牌、相同的基础营养数据源与 MIT 许可家族。
+[`MetaNutri---AI-`](https://github.com/ElijahZhao/MetaNutri---AI-) 持有完整项目：全栈平台 *和* 用于训练与评估下列模型的 `research/` 模块。本仓库只存放部署演示所需的内容。姊妹仓库 [`MetaNutri-Ai-RAG`](https://github.com/ElijahZhao/MetaNutri-Ai-RAG) 是**独立**的 RAG 展示：它不从父仓库导出——与父仓库共享的只有 MetaNutri 品牌、相同的基础营养数据源与 MIT 许可家族。
 
 - **它是** Streamlit Community Cloud 的部署目标——自包含（根目录 `app.py` + `requirements.txt`，约 2.3 MB），模型导出为 **JSON**，运行时无需训练环境。
 - **它不是**父仓库的 submodule、fork 或镜像，并且**从不独立编辑**——由父仓库重新生成。
