@@ -15,6 +15,7 @@
 [![License: MIT (code)](https://img.shields.io/badge/License-MIT_(code)-yellow?style=for-the-badge)](LICENSE)
 [![License: CC BY-NC-SA 4.0 (derived data)](https://img.shields.io/badge/License-CC_BY--NC--SA_4.0_(derived_data)-lightgrey?style=for-the-badge)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 [![Parent repo](https://img.shields.io/badge/Parent-MetaNutri--AI--10b981?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ElijahZhao/MetaNutri---AI-)
+[![Parent preprint](https://img.shields.io/badge/DOI-10.21203%2Frs.3.rs--11558064%2Fv1-0ea5e9?style=for-the-badge)](https://doi.org/10.21203/rs.3.rs-11558064/v1)
 
 </div>
 
@@ -29,10 +30,16 @@ made for a person the model has never seen.
 **Parent platform (full-stack project):** <https://meta-nutri-ai.vercel.app/> ·
 source [`MetaNutri---AI-`](https://github.com/ElijahZhao/MetaNutri---AI-)
 
-**Sister demo:** [`MetaNutri-Ai-RAG`](https://github.com/ElijahZhao/MetaNutri-Ai-RAG) — an
-independent RAG Q&A demo over the Chinese Food Composition Tables and the 2022
-Dietary Guidelines for Chinese Residents, with its own retrieval pipeline and a
-built-in 50-item evaluation: <https://metanutri-ai-rag-question-answering.streamlit.app>.
+**Preprint:** the measurement-reliability study behind these models is published from the parent
+repository — [DOI `10.21203/rs.3.rs-11558064/v1`](https://doi.org/10.21203/rs.3.rs-11558064/v1)
+(Research Square, v1, 2 Nov 2026, CC BY 4.0).
+
+**Sister research repository:** [`MetaNutri-Ai-RAG`](https://github.com/ElijahZhao/MetaNutri-Ai-RAG) — an
+independent research repo with its own retrieval pipeline over the Chinese Food Composition
+Tables and the 2022 Dietary Guidelines for Chinese Residents, the 200-item **NutriQA**
+benchmark, and its own published preprint
+([DOI `10.21203/rs.3.rs-11565315/v1`](https://doi.org/10.21203/rs.3.rs-11565315/v1)):
+<https://metanutri-ai-rag-question-answering.streamlit.app>.
 
 ## What this repository is (and is not)
 
@@ -42,9 +49,10 @@ This repo is the **demo half** of a two-repository project, and a sibling of a
 project: a full-stack platform *and* the `research/` module where the models below
 were trained and evaluated. This repo holds only what the deployed demo needs.
 The sibling, [`MetaNutri-Ai-RAG`](https://github.com/ElijahZhao/MetaNutri-Ai-RAG), is an
-**independent** RAG showcase: it is not exported from the parent — it shares only
-the MetaNutri brand, the same underlying nutrition data sources and the MIT
-license family.
+**independent research repository**: it is not exported from the parent — it owns its
+own data pipeline, retrieval stack, evaluation suite and published paper (NutriQA),
+and shares only the MetaNutri brand, the same underlying nutrition data sources and
+the MIT license family.
 
 - **It is** the deployment target for Streamlit Community Cloud — self-contained
   (`app.py` + `requirements.txt` at the root, ~2.3 MB), with models exported as

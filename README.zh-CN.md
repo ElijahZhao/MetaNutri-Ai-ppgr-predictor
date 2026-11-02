@@ -15,6 +15,7 @@
 [![License: MIT（代码）](https://img.shields.io/badge/License-MIT_%28%E4%BB%A3%E7%A0%81%29-yellow?style=for-the-badge)](LICENSE)
 [![License: CC BY-NC-SA 4.0（衍生数据）](https://img.shields.io/badge/License-CC_BY--NC--SA_4.0_%28%E8%A1%8D%E7%94%9F%E6%95%B0%E6%8D%AE%29-lightgrey?style=for-the-badge)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 [![父仓库](https://img.shields.io/badge/%E7%88%B6%E4%BB%93%E5%BA%93-MetaNutri--AI--10b981?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ElijahZhao/MetaNutri---AI-)
+[![父仓预印本](https://img.shields.io/badge/DOI-10.21203%2Frs.3.rs--11558064%2Fv1-0ea5e9?style=for-the-badge)](https://doi.org/10.21203/rs.3.rs-11558064/v1)
 
 </div>
 
@@ -26,12 +27,14 @@
 **父平台（全栈项目）：** <https://meta-nutri-ai.vercel.app/> ·
 源码 [`MetaNutri---AI-`](https://github.com/ElijahZhao/MetaNutri---AI-)
 
-**姊妹演示：** [`MetaNutri-Ai-RAG`](https://github.com/ElijahZhao/MetaNutri-Ai-RAG)——独立的 RAG 问答演示，基于《中国食物成分表》与《中国居民膳食指南（2022）》，自带检索管线与 50 条内置评测：<https://metanutri-ai-rag-question-answering.streamlit.app>。
+**预印本：** 这些模型背后的测量信度研究已由父仓库发表——[DOI `10.21203/rs.3.rs-11558064/v1`](https://doi.org/10.21203/rs.3.rs-11558064/v1)（Research Square，v1，2026-11-02，CC BY 4.0）。
+
+**姊妹研究仓：** [`MetaNutri-Ai-RAG`](https://github.com/ElijahZhao/MetaNutri-Ai-RAG)——独立研究仓，自带基于《中国食物成分表》与《中国居民膳食指南（2022）》的检索管线、200 题 **NutriQA** 基准，以及自己已发表的预印本（[DOI `10.21203/rs.3.rs-11565315/v1`](https://doi.org/10.21203/rs.3.rs-11565315/v1)）：<https://metanutri-ai-rag-question-answering.streamlit.app>。
 
 ## 这个仓库是什么（以及不是什么）
 
 本仓库是两仓库项目的**演示半区**，同时是三仓库项目中的一员。父仓库
-[`MetaNutri---AI-`](https://github.com/ElijahZhao/MetaNutri---AI-) 持有完整项目：全栈平台 *和* 用于训练与评估下列模型的 `research/` 模块。本仓库只存放部署演示所需的内容。姊妹仓库 [`MetaNutri-Ai-RAG`](https://github.com/ElijahZhao/MetaNutri-Ai-RAG) 是**独立**的 RAG 展示：它不从父仓库导出——与父仓库共享的只有 MetaNutri 品牌、相同的基础营养数据源与 MIT 许可家族。
+[`MetaNutri---AI-`](https://github.com/ElijahZhao/MetaNutri---AI-) 持有完整项目：全栈平台 *和* 用于训练与评估下列模型的 `research/` 模块。本仓库只存放部署演示所需的内容。姊妹仓库 [`MetaNutri-Ai-RAG`](https://github.com/ElijahZhao/MetaNutri-Ai-RAG) 是**独立研究仓**：它不从父仓库导出——拥有自己的数据管线、检索栈、评测套件与已发表的论文（NutriQA），与父仓库共享的只有 MetaNutri 品牌、相同的基础营养数据源与 MIT 许可家族。
 
 - **它是** Streamlit Community Cloud 的部署目标——自包含（根目录 `app.py` + `requirements.txt`，约 2.3 MB），模型导出为 **JSON**，运行时无需训练环境。
 - **它不是**父仓库的 submodule、fork 或镜像，并且**从不独立编辑**——由父仓库重新生成。
