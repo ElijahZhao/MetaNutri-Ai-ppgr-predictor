@@ -1,4 +1,4 @@
-# PPGR Predictor
+# 🩸 PPGR Predictor
 
 <div align="center">
 
@@ -26,22 +26,28 @@ Trained on [CGMacros](https://physionet.org/content/cgmacros/1.0.0/) (45 subject
 1,557 meals) and validated **leave-one-subject-out (LOPO)** — every prediction is
 made for a person the model has never seen.
 
+> **🎯 Headline:** LOPO breakfast — **AUC r = 0.890**, **iAUC r = 0.655**
+> (reproducing the published CGMacros baseline) · the same frozen model applied
+> to another cohort — **iAUC r = 0.23**. Why the drop? That question is the
+> [measurement-reliability preprint](https://doi.org/10.21203/rs.3.rs-11558064/v1).
+
 **Live demo:** <https://metanutri-ai-ppgr-predictor.streamlit.app/> ·
 **Parent platform (full-stack project):** <https://meta-nutri-ai.vercel.app/> ·
 source [`MetaNutri---AI-`](https://github.com/ElijahZhao/MetaNutri---AI-)
 
-**Preprint:** the measurement-reliability study behind these models is published from the parent
-repository — [DOI `10.21203/rs.3.rs-11558064/v1`](https://doi.org/10.21203/rs.3.rs-11558064/v1)
+## 🔗 The MetaNutri ecosystem (three repositories)
+
+**📄 Preprint:** the measurement-reliability study behind these models is published
+from the parent repository — [DOI `10.21203/rs.3.rs-11558064/v1`](https://doi.org/10.21203/rs.3.rs-11558064/v1)
 (Research Square, v1, 2 Nov 2026, CC BY 4.0).
 
-**Sister research repository:** [`MetaNutri-Ai-RAG`](https://github.com/ElijahZhao/MetaNutri-Ai-RAG) — an
-independent research repo with its own retrieval pipeline over the Chinese Food Composition
-Tables and the 2022 Dietary Guidelines for Chinese Residents, the 200-item **NutriQA**
-benchmark, and its own published preprint
-([DOI `10.21203/rs.3.rs-11565315/v1`](https://doi.org/10.21203/rs.3.rs-11565315/v1)):
-<https://metanutri-ai-rag-question-answering.streamlit.app>.
+| Repository | Role | Live |
+|---|---|---|
+| 🧬 [`MetaNutri---AI-`](https://github.com/ElijahZhao/MetaNutri---AI-) | **Parent** — full-stack platform *and* the `research/` module that trained & evaluated these models; hosts **preprint ①** | <https://meta-nutri-ai.vercel.app> |
+| 🩸 **This repository** | **Deployment shell** — Streamlit demo, regenerated one-way from the parent | <https://metanutri-ai-ppgr-predictor.streamlit.app> |
+| 🥗 [`MetaNutri-Ai-RAG`](https://github.com/ElijahZhao/MetaNutri-Ai-RAG) | **Independent research repo** — 200-item **NutriQA** benchmark over official Chinese nutrition data; hosts **preprint ②** ([DOI `10.21203/rs.3.rs-11565315/v1`](https://doi.org/10.21203/rs.3.rs-11565315/v1)) | <https://metanutri-ai-rag-question-answering.streamlit.app> |
 
-## What this repository is (and is not)
+## 🧭 What this repository is (and is not)
 
 This repo is the **demo half** of a two-repository project, and a sibling of a
 **third** repository. The parent repository,
@@ -82,7 +88,7 @@ SHAs for the 32 curated files. A red *Sync (parent module)* job means the parent
 moved ahead or a copy was edited here — re-copy the file, or update the script if
 the curated set itself is meant to change.
 
-## Results (LOPO, Pearson *r*)
+## 📊 Results (LOPO, Pearson *r*)
 
 | Target | Breakfast only (n=423) | All meals (n=1,557) |
 |---|---|---|
@@ -120,7 +126,7 @@ A mixed-effects check (subject random intercept) confirms the same picture: the
 ICC is 0.69 for AUC but 0.33 for iAUC, and within a person carbohydrate raises
 while protein lowers the response. Details in §4.7 of the report.
 
-## External validation (BIG IDEAs)
+## 🌍 External validation (BIG IDEAs)
 
 The frozen CGMacros model is applied, with **no retraining**, to
 [BIG IDEAs](https://physionet.org/content/big-ideas-glycemic-wearable/1.1.2/)
@@ -142,7 +148,7 @@ in the external data. The demo exposes this read-only panel under
 
 ![External validation](reports/figures/fig5_external_validation.png)
 
-## How it works
+## ⚙️ How it works
 
 - **Features** — meal: carbohydrate / protein / fat / fiber (g), meal-time glucose.
   Subject: age, sex, BMI, HbA1c, fasting glucose, fasting insulin, HOMA-IR
@@ -156,7 +162,7 @@ in the external data. The demo exposes this read-only panel under
   statistics, so no information leaks from the held-out subject.
 - **Explanations** — exact TreeSHAP values (XGBoost `pred_contribs`).
 
-## Run the demo locally
+## 🚀 Run the demo locally
 
 ```bash
 pip install -r requirements.txt
@@ -170,7 +176,7 @@ shows per-feature TreeSHAP contributions.
 > population-average gamma shape scaled to the predicted peak rise and iAUC, and
 > the UI labels it as a reconstruction rather than a model output.
 
-## Tests
+## 🧪 Tests
 
 ```bash
 python test_app.py
@@ -180,7 +186,7 @@ Boots `app.py` headlessly with Streamlit's own `AppTest` harness, presses
 **Predict**, and asserts that the three scalar predictions and the TreeSHAP
 panel render without exceptions — no server and no network required.
 
-## Repository layout
+## 📁 Repository layout
 
 ```
 app.py                Streamlit demo
@@ -215,7 +221,7 @@ python src/experiment.py         # run the LOPO suite
 python src/train_final.py        # export the deployable models
 ```
 
-## Data and license
+## 📄 Data and license
 
 **Licensing is layered — see [NOTICE.md](NOTICE.md).** Code (`app.py`,
 `inference.py`, `src/`, `test_app.py`) is **MIT**. Everything computed from the
@@ -234,7 +240,7 @@ External validation uses
 PhysioNet, DOI [10.13026/zthx-5212](https://doi.org/10.13026/zthx-5212), licensed
 **ODC-By 1.0** (attribution).
 
-## Limitations
+## ⚠️ Limitations
 
 - Small cohort (45 subjects) with a narrow demographic range; held-out
   performance on unseen subjects is much lower than within-subject performance.

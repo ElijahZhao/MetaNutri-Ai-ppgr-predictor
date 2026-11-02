@@ -1,4 +1,4 @@
-# PPGR Predictor
+# 🩸 PPGR Predictor
 
 <div align="center">
 
@@ -23,15 +23,23 @@
 
 模型基于 [CGMacros](https://physionet.org/content/cgmacros/1.0.0/)（45 名受试者，1,557 餐）训练，采用**留一被试交叉验证（LOPO）**——每一次预测的对象都是模型从未见过的人。
 
+> **🎯 一句话看点：** LOPO 早餐——**AUC r = 0.890**、**iAUC r = 0.655**（复现已发表的 CGMacros 基线）；同一冻结模型迁移到另一队列——**iAUC r = 0.23**。为什么掉这么多？这正是[测量信度预印本](https://doi.org/10.21203/rs.3.rs-11558064/v1)要回答的问题。
+
 **在线演示：** <https://metanutri-ai-ppgr-predictor.streamlit.app/> ·
 **父平台（全栈项目）：** <https://meta-nutri-ai.vercel.app/> ·
 源码 [`MetaNutri---AI-`](https://github.com/ElijahZhao/MetaNutri---AI-)
 
-**预印本：** 这些模型背后的测量信度研究已由父仓库发表——[DOI `10.21203/rs.3.rs-11558064/v1`](https://doi.org/10.21203/rs.3.rs-11558064/v1)（Research Square，v1，2026-11-02，CC BY 4.0）。
+## 🔗 MetaNutri 生态（三个仓库）
 
-**姊妹研究仓：** [`MetaNutri-Ai-RAG`](https://github.com/ElijahZhao/MetaNutri-Ai-RAG)——独立研究仓，自带基于《中国食物成分表》与《中国居民膳食指南（2022）》的检索管线、200 题 **NutriQA** 基准，以及自己已发表的预印本（[DOI `10.21203/rs.3.rs-11565315/v1`](https://doi.org/10.21203/rs.3.rs-11565315/v1)）：<https://metanutri-ai-rag-question-answering.streamlit.app>。
+**📄 预印本：** 这些模型背后的测量信度研究已由父仓库发表——[DOI `10.21203/rs.3.rs-11558064/v1`](https://doi.org/10.21203/rs.3.rs-11558064/v1)（Research Square，v1，2026-11-02，CC BY 4.0）。
 
-## 这个仓库是什么（以及不是什么）
+| 仓库 | 角色 | 在线 |
+|---|---|---|
+| 🧬 [`MetaNutri---AI-`](https://github.com/ElijahZhao/MetaNutri---AI-) | **父仓库**——全栈平台 *和* 训练与评估这些模型的 `research/` 模块；托管**预印本①** | <https://meta-nutri-ai.vercel.app> |
+| 🩸 **本仓库** | **部署壳**——Streamlit 演示，由父仓库单向再生成 | <https://metanutri-ai-ppgr-predictor.streamlit.app> |
+| 🥗 [`MetaNutri-Ai-RAG`](https://github.com/ElijahZhao/MetaNutri-Ai-RAG) | **独立研究仓**——基于官方中文营养数据的 200 题 **NutriQA** 基准；托管**预印本②**（[DOI `10.21203/rs.3.rs-11565315/v1`](https://doi.org/10.21203/rs.3.rs-11565315/v1)） | <https://metanutri-ai-rag-question-answering.streamlit.app> |
+
+## 🧭 这个仓库是什么（以及不是什么）
 
 本仓库是两仓库项目的**演示半区**，同时是三仓库项目中的一员。父仓库
 [`MetaNutri---AI-`](https://github.com/ElijahZhao/MetaNutri---AI-) 持有完整项目：全栈平台 *和* 用于训练与评估下列模型的 `research/` 模块。本仓库只存放部署演示所需的内容。姊妹仓库 [`MetaNutri-Ai-RAG`](https://github.com/ElijahZhao/MetaNutri-Ai-RAG) 是**独立研究仓**：它不从父仓库导出——拥有自己的数据管线、检索栈、评测套件与已发表的论文（NutriQA），与父仓库共享的只有 MetaNutri 品牌、相同的基础营养数据源与 MIT 许可家族。
@@ -48,7 +56,7 @@
 
 **同步漂移检查。** CI 运行 [`scripts/check_sync.py`](scripts/check_sync.py)，通过 GitHub API 解析父仓库文件树，比对 32 个策展文件的 git blob SHA。*Sync（父模块）* job 变红意味着父仓库前进了，或本仓库某副本被改动——重新复制该文件；若策展集本身意图变更，则更新脚本。
 
-## 结果（LOPO，Pearson r）
+## 📊 结果（LOPO，Pearson r）
 
 | 目标 | 仅早餐（n=423） | 全部餐次（n=1,557） |
 |---|---|---|
@@ -72,7 +80,7 @@
 
 混合效应检查（被试随机截距）证实同一图景：AUC 的 ICC 为 0.69，iAUC 仅 0.33；个体内碳水升高反应、蛋白质降低反应。详见报告 §4.7。
 
-## 外部验证（BIG IDEAs）
+## 🌍 外部验证（BIG IDEAs）
 
 将冻结的 CGMacros 模型**不做任何重训练**地应用到 [BIG IDEAs](https://physionet.org/content/big-ideas-glycemic-wearable/1.1.2/)（16 名受试者，656 餐——不同的 CGM 设备 Dexcom G6 与自由生活饮食日志），仅使用两个数据集共有的 5 个特征。
 
@@ -87,7 +95,7 @@ AUC 部分迁移，但 iAUC 与峰值升高崩盘——而仅碳水的 Ridge 回
 
 ![外部验证](reports/figures/fig5_external_validation.png)
 
-## 工作原理
+## ⚙️ 工作原理
 
 - **特征** —— 餐次：碳水 / 蛋白质 / 脂肪 / 膳食纤维（g）、餐时血糖。被试：年龄、性别、BMI、HbA1c、空腹血糖、空腹胰岛素、HOMA-IR（衍生）、甘油三酯、总胆固醇、HDL、非 HDL、LDL、VLDL、Chol/HDL。
 - **目标** —— 2 小时增量 AUC（基线以上的正增量面积）、2 小时总 AUC、血糖峰值升高。
@@ -95,7 +103,7 @@ AUC 部分迁移，但 iAUC 与峰值升高崩盘——而仅碳水的 Ridge 回
 - **协议** —— 留一被试交叉验证。缺失特征用**训练折**中位数插补、以**训练折**统计量标准化——不留出任何被试的信息泄漏。
 - **可解释性** —— 精确 TreeSHAP 值（XGBoost `pred_contribs`）。
 
-## 本地运行演示
+## 🚀 本地运行演示
 
 ```bash
 pip install -r requirements.txt
@@ -106,7 +114,7 @@ streamlit run app.py
 
 > 模型预测的是**标量，不是时间序列**。绘制的曲线是缩放至预测峰值升高与 iAUC 的群体平均 gamma 形状，UI 将其标注为重建而非模型输出。
 
-## 测试
+## 🧪 测试
 
 ```bash
 python test_app.py
@@ -114,7 +122,7 @@ python test_app.py
 
 用 Streamlit 自带的 `AppTest` 无头启动 `app.py`，点击 **Predict**，断言三个标量预测与 TreeSHAP 面板无异常渲染——无需服务器与网络。
 
-## 仓库结构
+## 📁 仓库结构
 
 ```
 app.py                Streamlit 演示
@@ -144,7 +152,7 @@ python src/experiment.py         # 运行 LOPO 套件
 python src/train_final.py        # 导出可部署模型
 ```
 
-## 数据与许可
+## 📄 数据与许可
 
 **许可分层——详见 [NOTICE.md](NOTICE.md)。** 代码（`app.py`、`inference.py`、`src/`、`test_app.py`）为 **MIT**。由数据集计算得到的一切（`model/*.json`、`experiments/*.csv`、`assets/*`、`reports/*`）为 **CC BY-NC-SA 4.0**。仓库级 [LICENSE](LICENSE) 文件是 MIT 文本，仅覆盖代码层。
 
@@ -152,7 +160,7 @@ python src/train_final.py        # 导出可部署模型
 
 外部验证使用 [BIG IDEAs](https://physionet.org/content/big-ideas-glycemic-wearable/1.1.2/) —— PhysioNet，DOI [10.13026/zthx-5212](https://doi.org/10.13026/zthx-5212)，许可 **ODC-By 1.0**（署名）。
 
-## 局限
+## ⚠️ 局限
 
 - 队列小（45 名受试者）且人口学范围窄；未见被试的留出性能远低于被试内性能。
 - iAUC 比 AUC 难预测得多——AUC 由个体整体血糖水平主导，而 iAUC 剥离出餐驱动的波动。
