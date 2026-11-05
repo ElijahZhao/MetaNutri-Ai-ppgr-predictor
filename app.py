@@ -711,6 +711,25 @@ p, li, [data-testid="stMarkdownContainer"] { color: var(--ink-soft); font-size: 
   padding: 0.6rem 0.1rem;
 }
 .stTabs [aria-selected="true"] { color: var(--ink) !important; }
+/* Predict tab (first child) gets visual weight so the functional landing
+   point is unmistakable: bold label + oxblood accent dot + heavier underline. */
+.stTabs [data-baseweb="tab-list"] > div:first-child [data-baseweb="tab"] {
+  font-weight: 800 !important;
+  color: var(--oxblood) !important;
+  position: relative;
+}
+.stTabs [data-baseweb="tab-list"] > div:first-child [data-baseweb="tab"]::before {
+  content: "●";
+  position: absolute;
+  left: -0.85rem;
+  top: 0.62rem;
+  font-size: 0.55rem;
+  color: var(--oxblood);
+  letter-spacing: 0;
+}
+.stTabs [data-baseweb="tab-list"] > div:first-child [aria-selected="true"] {
+  color: var(--oxblood) !important;
+}
 
 .stButton > button, [data-testid="stFormSubmitButton"] button {
   width: 100%;
@@ -1125,16 +1144,11 @@ def main() -> None:
 
     st.warning(t("warning"))
 
-    # all project narrative lives inside the first tab so it never pushes the
-    # interactive tabs or gets pushed around by expander state
-    tab_about, tab_predict, tab_validation, tab_method = st.tabs(
-        [t("tab_about"), t("tab_predict"), t("tab_validation"), t("tab_method")]
+    # Predict first so the functional landing tab is what users see; About
+    # and Method sit beside it as reference.
+    tab_predict, tab_validation, tab_method, tab_about = st.tabs(
+        [t("tab_predict"), t("tab_validation"), t("tab_method"), t("tab_about")]
     )
-
-    # ---- about -----------------------------------------------------------
-    with tab_about:
-        st.markdown('<div class="rule"></div>', unsafe_allow_html=True)
-        render_about()
 
     # ---- predict ---------------------------------------------------------
     with tab_predict:
@@ -1296,6 +1310,11 @@ def main() -> None:
         _section("08", t("sec_method"))
         st.markdown(t("method_bullets"))
         st.markdown(t("repos_line"))
+
+    # ---- about -----------------------------------------------------------
+    with tab_about:
+        st.markdown('<div class="rule"></div>', unsafe_allow_html=True)
+        render_about()
 
     st.markdown(t("footer"), unsafe_allow_html=True)
 
