@@ -38,11 +38,15 @@ URL_REPORT = (
 )
 URL_PREPRINT = (
     "https://github.com/ElijahZhao/MetaNutri---AI-/blob/main/preprint/"
-    "medrxiv_manuscript.pdf"
+    "2026-11-02_measurement-reliability-ppgr_preprint_v1.pdf"
 )
+URL_PREPRINT_DOI = "https://doi.org/10.21203/rs.3.rs-11558064/v1"
+URL_RAG_DOI = "https://doi.org/10.21203/rs.3.rs-11565315/v1"
+URL_PARENT_TAG = "https://github.com/ElijahZhao/MetaNutri---AI-/tree/v1.0.0/research"
+URL_THIS_TAG = "https://github.com/ElijahZhao/MetaNutri-Ai-ppgr-predictor/tree/v1.0.0"
 
 st.set_page_config(
-    page_title="PPGR Predictor — MetaNutri research demo",
+    page_title="PPGR Predictor · 餐后血糖预测 · MetaNutri",
     page_icon="🩸",
     layout="wide",
     initial_sidebar_state="auto",
@@ -197,13 +201,17 @@ STRINGS = {
         "en": "Repositories: "
         "[`MetaNutri-Ai-ppgr-predictor`](https://github.com/ElijahZhao/MetaNutri-Ai-ppgr-predictor) · "
         "[`MetaNutri---AI-`](https://github.com/ElijahZhao/MetaNutri---AI-) · "
+        "[`MetaNutri-Ai-RAG`](https://github.com/ElijahZhao/MetaNutri-Ai-RAG) · "
         "[technical report](https://github.com/ElijahZhao/MetaNutri---AI-/blob/main/research/reports/technical_report.md) · "
-        "[preprint PDF](https://github.com/ElijahZhao/MetaNutri---AI-/blob/main/preprint/medrxiv_manuscript.pdf)",
+        "[preprint PDF](https://github.com/ElijahZhao/MetaNutri---AI-/blob/main/preprint/2026-11-02_measurement-reliability-ppgr_preprint_v1.pdf) · "
+        "[preprint DOI](https://doi.org/10.21203/rs.3.rs-11558064/v1)",
         "zh": "仓库："
         "[`MetaNutri-Ai-ppgr-predictor`](https://github.com/ElijahZhao/MetaNutri-Ai-ppgr-predictor) · "
         "[`MetaNutri---AI-`](https://github.com/ElijahZhao/MetaNutri---AI-) · "
+        "[`MetaNutri-Ai-RAG`](https://github.com/ElijahZhao/MetaNutri-Ai-RAG) · "
         "[技术报告](https://github.com/ElijahZhao/MetaNutri---AI-/blob/main/research/reports/technical_report.md) · "
-        "[预印本 PDF](https://github.com/ElijahZhao/MetaNutri---AI-/blob/main/preprint/medrxiv_manuscript.pdf)",
+        "[预印本 PDF](https://github.com/ElijahZhao/MetaNutri---AI-/blob/main/preprint/2026-11-02_measurement-reliability-ppgr_preprint_v1.pdf) · "
+        "[预印本 DOI](https://doi.org/10.21203/rs.3.rs-11558064/v1)",
     },
     "footer": {
         "en": '<div class="footer">MetaNutri ecosystem · PPGR research module. '
@@ -230,11 +238,12 @@ STRINGS = {
         "zh": "主仓库 — 论文、技术报告与实验流水线。",
     },
     "side_rag_desc": {
-        "en": "Retrieval-augmented health & nutrition Q&A with built-in evaluation.",
-        "zh": "带内置评测的健康营养检索问答（RAG）。",
+        "en": "Retrieval-augmented nutrition Q&A + the 200-item NutriQA benchmark.",
+        "zh": "检索增强的营养问答 + 200 题 NutriQA 基准。",
     },
     "side_report": {"en": "technical report ↗", "zh": "技术报告 ↗"},
-    "side_preprint": {"en": "preprint ↗", "zh": "预印本 ↗"},
+    "side_preprint": {"en": "preprint PDF ↗", "zh": "预印本 PDF ↗"},
+    "side_doi": {"en": "preprint DOI ↗", "zh": "预印本 DOI ↗"},
     "side_data_head": {"en": "Data & licence", "zh": "数据与许可"},
     "side_data": {
         "en": "CGMacros (PhysioNet, CC BY-NC-SA 4.0). Code MIT.",
@@ -245,6 +254,165 @@ STRINGS = {
         "zh": "基于小型队列的研究演示，非医疗器械。",
     },
     "side_github": {"en": "GitHub ↗", "zh": "GitHub ↗"},
+    "about_body": {
+        "en": "**MetaNutri** is a precision-nutrition ecosystem; this page is its "
+        "**PPGR research module**. It runs a *frozen* XGBoost model that predicts "
+        "postprandial glucose response from one meal's macronutrients plus a few "
+        "subject-level clinical markers — validated **leave-one-subject-out** on "
+        "CGMacros (45 subjects, 1,557 meals) and transferred **without retraining** "
+        "to BIG IDEAs (16 subjects, 656 meals).\n\n"
+        "The published finding is the interesting part: **AUC survives the cohort "
+        "change, iAUC does not** — because the measurement itself is only so "
+        "reliable. Both the preprint (CC BY 4.0) and the 21-page technical report "
+        "are linked below.",
+        "zh": "**MetaNutri** 是一个精准营养生态，本页是其中的 **PPGR 研究模块**。"
+        "它运行一个*冻结的* XGBoost 模型：根据一餐的宏量营养素与少量受试者级临床指标"
+        "预测餐后血糖响应——在 CGMacros（45 人 / 1,557 餐）上做**留一受试者交叉验证**，"
+        "再**不做任何重训练**地迁移到 BIG IDEAs（16 人 / 656 餐）。\n\n"
+        "真正有意思的是已发表的结论：**AUC 扛得住跨队列变化，iAUC 扛不住**——因为测量"
+        "本身就没有那么可靠。预印本（CC BY 4.0）与 21 页技术报告的链接见下方。",
+    },
+    "cold_start": {
+        "en": "⏳ **First visit?** Streamlit parks idle apps in a sleep state. If you "
+        "saw a “Zzzz” wake-up prompt, click **“Yes, get this app back up!”** and "
+        "give it about 30 seconds — this page runs the real models, not a mock.",
+        "zh": "⏳ **第一次访问？** Streamlit 会把闲置应用转入休眠。若你看到“Zzzz”唤醒页，"
+        "请点击 **“Yes, get this app back up!”**，并等待约 30 秒——本页运行的是真实模型，"
+        "不是假数据。",
+    },
+    "faq_head": {
+        "en": "📖 What this project is — plain answers, no paper required",
+        "zh": "📖 这个项目到底是什么——不读论文也能懂",
+    },
+    "faq_q1": {
+        "en": "What can this page actually do?",
+        "zh": "这个页面到底能做什么？",
+    },
+    "faq_a1": {
+        "en": "It runs the frozen model on the inputs you enter and returns the three "
+        "scalar targets it was trained on — 2-hour AUC, 2-hour iAUC and peak glucose "
+        "rise — together with exact TreeSHAP contributions per feature. It does "
+        "**not** predict a glucose trace; the curve in the Predict tab is an "
+        "illustrative reconstruction, labelled as such.",
+        "zh": "它用你输入的参数运行冻结模型，返回训练时的三个标量目标——2 小时 AUC、"
+        "2 小时 iAUC 与血糖峰值升幅——并给出逐特征的精确 TreeSHAP 贡献。它**不预测**"
+        "血糖轨迹；预测页里的曲线是示意性重建，页面上已明确标注。",
+    },
+    "faq_q2": {
+        "en": "Where does the data come from?",
+        "zh": "数据从哪来？",
+    },
+    "faq_a2": {
+        "en": "Two public PhysioNet datasets: **CGMacros** "
+        "(DOI [10.13026/3z8q-x658](https://doi.org/10.13026/3z8q-x658), "
+        "CC BY-NC-SA 4.0) for training and internal validation, and **BIG IDEAs** "
+        "(DOI [10.13026/zthz-5212](https://doi.org/10.13026/zthz-5212), ODC-By) for "
+        "the external transfer test. No personal data, no health records, no "
+        "payment details anywhere in this project.",
+        "zh": "两个公开的 PhysioNet 数据集：**CGMacros**"
+        "（DOI [10.13026/3z8q-x658](https://doi.org/10.13026/3z8q-x658)，"
+        "CC BY-NC-SA 4.0）用于训练与内部验证；**BIG IDEAs**"
+        "（DOI [10.13026/zthz-5212](https://doi.org/10.13026/zthz-5212)，ODC-By）"
+        "用于外部迁移测试。整个项目不涉及任何个人数据、健康档案或支付信息。",
+    },
+    "faq_q3": {
+        "en": "How do I check the numbers?",
+        "zh": "我怎么核实这些数字？",
+    },
+    "faq_a3": {
+        "en": "Every figure on this page is rendered from the parent repository's "
+        "committed result CSVs, pinned at tag `v1.0.0`; the frozen model weights "
+        "shipped here are the same ones that produced those CSVs. The preprint "
+        "(Research Square, CC BY 4.0) and the technical report are linked below, and "
+        "both the data and the code are public.",
+        "zh": "本页每一个数字都来自父仓已提交的 结果 CSV（锁定在标签 `v1.0.0`）；"
+        "本页随附的冻结模型权重，就是产出这些 CSV 的同一份权重。预印本"
+        "（Research Square，CC BY 4.0）与技术报告链接见下方，数据与代码均已公开。",
+    },
+    "cite_head": {
+        "en": "📌 How to cite",
+        "zh": "📌 引用方式",
+    },
+    "cite_intro": {
+        "en": "Preprint (Research Square, v1, 2 Nov 2026, **CC BY 4.0**): "
+        "[`10.21203/rs.3.rs-11558064/v1`](https://doi.org/10.21203/rs.3.rs-11558064/v1)",
+        "zh": "预印本（Research Square，v1，2026-11-02，**CC BY 4.0**）："
+        "[`10.21203/rs.3.rs-11558064/v1`](https://doi.org/10.21203/rs.3.rs-11558064/v1)",
+    },
+    "cite_bib": {
+        "en": "@misc{zhao2026ppgr,\n"
+        "  author       = {Yulin Zhao},\n"
+        "  title        = {Measurement Reliability Confounds Cross-Regime "
+        "Comparisons of Postprandial Glucose Prediction: Evidence from Bidirectional "
+        "Cross-Cohort Transfer},\n"
+        "  year         = {2026},\n"
+        "  publisher    = {Research Square},\n"
+        "  doi          = {10.21203/rs.3.rs-11558064/v1},\n"
+        "  url          = {https://doi.org/10.21203/rs.3.rs-11558064/v1},\n"
+        "  note         = {Preprint, CC BY 4.0}\n"
+        "}",
+        "zh": "@misc{zhao2026ppgr,\n"
+        "  author       = {Yulin Zhao},\n"
+        "  title        = {Measurement Reliability Confounds Cross-Regime "
+        "Comparisons of Postprandial Glucose Prediction: Evidence from Bidirectional "
+        "Cross-Cohort Transfer},\n"
+        "  year         = {2026},\n"
+        "  publisher    = {Research Square},\n"
+        "  doi          = {10.21203/rs.3.rs-11558064/v1},\n"
+        "  url          = {https://doi.org/10.21203/rs.3.rs-11558064/v1},\n"
+        "  note         = {Preprint, CC BY 4.0}\n"
+        "}",
+    },
+    "eco_head": {
+        "en": "🧭 The MetaNutri ecosystem — three repositories, two published papers",
+        "zh": "🧭 MetaNutri 生态——三个仓库、两篇已发表论文",
+    },
+    "eco_intro": {
+        "en": "This page is one of three public repositories. They share the brand, "
+        "the MIT code licence and the underlying nutrition data sources — nothing "
+        "else. Each one stands on its own.",
+        "zh": "本页是三个公开仓库之一。三者共享品牌、MIT 代码许可与底层营养数据源，"
+        "此外互不依赖，各自独立成立。",
+    },
+    "eco_table": {
+        "en": "| Repository | What it holds | Paper |\n"
+        "|---|---|---|\n"
+        "| [`MetaNutri---AI-`](https://github.com/ElijahZhao/MetaNutri---AI-) | "
+        "Main platform + the PPGR research module (data, pipeline, results) | "
+        "[`10.21203/rs.3.rs-11558064/v1`](https://doi.org/10.21203/rs.3.rs-11558064/v1) |\n"
+        "| [`MetaNutri-Ai-RAG`](https://github.com/ElijahZhao/MetaNutri-Ai-RAG) | "
+        "Independent research repo — retrieval pipeline over official Chinese "
+        "nutrition data + the 200-item **NutriQA** benchmark | "
+        "[`10.21203/rs.3.rs-11565315/v1`](https://doi.org/10.21203/rs.3.rs-11565315/v1) |\n"
+        "| [`MetaNutri-Ai-ppgr-predictor`](https://github.com/ElijahZhao/MetaNutri-Ai-ppgr-predictor) | "
+        "**This page** — the deployment shell that ships the frozen models | — |",
+        "zh": "| 仓库 | 承载什么 | 论文 |\n"
+        "|---|---|---|\n"
+        "| [`MetaNutri---AI-`](https://github.com/ElijahZhao/MetaNutri---AI-) | "
+        "主平台 + PPGR 研究模块（数据、流水线、结果） | "
+        "[`10.21203/rs.3.rs-11558064/v1`](https://doi.org/10.21203/rs.3.rs-11558064/v1) |\n"
+        "| [`MetaNutri-Ai-RAG`](https://github.com/ElijahZhao/MetaNutri-Ai-RAG) | "
+        "独立研究仓——基于官方中文营养数据的检索管线 + 200 题 **NutriQA** 基准 | "
+        "[`10.21203/rs.3.rs-11565315/v1`](https://doi.org/10.21203/rs.3.rs-11565315/v1) |\n"
+        "| [`MetaNutri-Ai-ppgr-predictor`](https://github.com/ElijahZhao/MetaNutri-Ai-ppgr-predictor) | "
+        "**本页**——发布冻结模型的部署壳 | — |",
+    },
+    "repro_head": {
+        "en": "🔁 Reproducibility anchors",
+        "zh": "🔁 复现锚点",
+    },
+    "repro_body": {
+        "en": "Research module (data, code, result CSVs) pinned at parent tag "
+        f"[`v1.0.0`]({URL_PARENT_TAG}) "
+        "· demo, frozen models and reports pinned at "
+        f"[`v1.0.0`]({URL_THIS_TAG}) "
+        "· both papers are CC BY 4.0 on Research Square.",
+        "zh": "研究模块（数据、代码、结果 CSV）锁定在父仓标签 "
+        f"[`v1.0.0`]({URL_PARENT_TAG})；"
+        "演示、冻结模型与报告锁定在 "
+        f"[`v1.0.0`]({URL_THIS_TAG})；"
+        "两篇论文均为 Research Square 上的 CC BY 4.0。",
+    },
 }
 
 METRIC_LABELS = {
@@ -846,13 +1014,14 @@ def render_sidebar() -> None:
                 ("GitHub ↗", REPO_HUB),
                 (t("side_report"), URL_REPORT),
                 (t("side_preprint"), URL_PREPRINT),
+                (t("side_doi"), URL_PREPRINT_DOI),
             ],
         )
         _side_card(
             t("side_rag_tag"),
             "MetaNutri-Ai-RAG",
             t("side_rag_desc"),
-            [("GitHub ↗", REPO_RAG)],
+            [("GitHub ↗", REPO_RAG), (t("side_doi"), URL_RAG_DOI)],
         )
 
         st.markdown(
@@ -864,6 +1033,28 @@ def render_sidebar() -> None:
             f'<div class="side-note dim">{t("side_note")}</div>',
             unsafe_allow_html=True,
         )
+
+
+def render_about() -> None:
+    """Plain-language project narrative: what this is, how to check it, how to cite it."""
+    st.markdown(t("about_body"))
+    st.markdown("> " + t("cold_start"))
+    with st.expander(t("faq_head"), expanded=False):
+        for q_key, a_key in (
+            ("faq_q1", "faq_a1"),
+            ("faq_q2", "faq_a2"),
+            ("faq_q3", "faq_a3"),
+        ):
+            st.markdown(f"**{t(q_key)}**")
+            st.markdown(t(a_key))
+        st.markdown(f"**{t('cite_head')}**")
+        st.markdown(t("cite_intro"))
+        st.code(t("cite_bib"), language="bibtex")
+        st.markdown(f"**{t('repro_head')}**")
+        st.markdown(t("repro_body"))
+        st.markdown(f"**{t('eco_head')}**")
+        st.markdown(t("eco_intro"))
+        st.markdown(t("eco_table"))
 
 
 def render_external() -> None:
@@ -932,6 +1123,8 @@ def main() -> None:
     )
 
     st.warning(t("warning"))
+
+    render_about()
 
     tab_predict, tab_validation, tab_method = st.tabs(
         [t("tab_predict"), t("tab_validation"), t("tab_method")]
