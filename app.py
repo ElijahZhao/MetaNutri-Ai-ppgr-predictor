@@ -80,6 +80,7 @@ STRINGS = {
     "tab_predict": {"en": "Predict", "zh": "预测"},
     "tab_validation": {"en": "Validation", "zh": "验证"},
     "tab_method": {"en": "Method & data", "zh": "方法与数据"},
+    "tab_about": {"en": "About this project", "zh": "项目介绍"},
     "sec_meal": {"en": "Meal composition", "zh": "餐食构成"},
     "sec_subject": {"en": "Subject panel", "zh": "受试者面板"},
     "sec_predicted": {"en": "Predicted response", "zh": "预测响应"},
@@ -1124,11 +1125,16 @@ def main() -> None:
 
     st.warning(t("warning"))
 
-    render_about()
-
-    tab_predict, tab_validation, tab_method = st.tabs(
-        [t("tab_predict"), t("tab_validation"), t("tab_method")]
+    # all project narrative lives inside the first tab so it never pushes the
+    # interactive tabs or gets pushed around by expander state
+    tab_about, tab_predict, tab_validation, tab_method = st.tabs(
+        [t("tab_about"), t("tab_predict"), t("tab_validation"), t("tab_method")]
     )
+
+    # ---- about -----------------------------------------------------------
+    with tab_about:
+        st.markdown('<div class="rule"></div>', unsafe_allow_html=True)
+        render_about()
 
     # ---- predict ---------------------------------------------------------
     with tab_predict:
