@@ -152,6 +152,26 @@ python src/experiment.py         # 运行 LOPO 套件
 python src/train_final.py        # 导出可部署模型
 ```
 
+## 📌 引用方式
+
+预印本（Research Square，v1，2026-11-02，**CC BY 4.0**）：
+[`10.21203/rs.3.rs-11558064/v1`](https://doi.org/10.21203/rs.3.rs-11558064/v1) ·
+[PDF（在父仓中）](https://github.com/ElijahZhao/MetaNutri---AI-/blob/main/preprint/2026-11-02_measurement-reliability-ppgr_preprint_v1.pdf)
+
+本仓附带 [`CITATION.cff`](CITATION.cff)，GitHub 的 *Cite this repository* 按钮会直接给出该预印本。
+
+```bibtex
+@misc{zhao2026ppgr,
+  author       = {Yulin Zhao},
+  title        = {Measurement Reliability Confounds Cross-Regime Comparisons of Postprandial Glucose Prediction: Evidence from Bidirectional Cross-Cohort Transfer},
+  year         = {2026},
+  publisher    = {Research Square},
+  doi          = {10.21203/rs.3.rs-11558064/v1},
+  url          = {https://doi.org/10.21203/rs.3.rs-11558064/v1},
+  note         = {Preprint, CC BY 4.0}
+}
+```
+
 ## 📄 数据与许可
 
 **许可分层——详见 [NOTICE.md](NOTICE.md)。** 代码（`app.py`、`inference.py`、`src/`、`test_app.py`）为 **MIT**。由数据集计算得到的一切（`model/*.json`、`experiments/*.csv`、`assets/*`、`reports/*`）为 **CC BY-NC-SA 4.0**。仓库级 [LICENSE](LICENSE) 文件是 MIT 文本，仅覆盖代码层。

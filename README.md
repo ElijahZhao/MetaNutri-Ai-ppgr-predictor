@@ -221,6 +221,27 @@ python src/experiment.py         # run the LOPO suite
 python src/train_final.py        # export the deployable models
 ```
 
+## 📌 How to cite
+
+Preprint (Research Square, v1, 2 Nov 2026, **CC BY 4.0**):
+[`10.21203/rs.3.rs-11558064/v1`](https://doi.org/10.21203/rs.3.rs-11558064/v1) ·
+[PDF in the parent repository](https://github.com/ElijahZhao/MetaNutri---AI-/blob/main/preprint/2026-11-02_measurement-reliability-ppgr_preprint_v1.pdf)
+
+This repository ships a [`CITATION.cff`](CITATION.cff), so GitHub's *Cite this repository* button
+offers the preprint directly.
+
+```bibtex
+@misc{zhao2026ppgr,
+  author       = {Yulin Zhao},
+  title        = {Measurement Reliability Confounds Cross-Regime Comparisons of Postprandial Glucose Prediction: Evidence from Bidirectional Cross-Cohort Transfer},
+  year         = {2026},
+  publisher    = {Research Square},
+  doi          = {10.21203/rs.3.rs-11558064/v1},
+  url          = {https://doi.org/10.21203/rs.3.rs-11558064/v1},
+  note         = {Preprint, CC BY 4.0}
+}
+```
+
 ## 📄 Data and license
 
 **Licensing is layered — see [NOTICE.md](NOTICE.md).** Code (`app.py`,
