@@ -1,218 +1,197 @@
-# 🩸 PPGR Predictor
-
 <div align="center">
 
 <p align="right">
   <strong>English</strong> | <a href="README.zh-CN.md">简体中文</a>
 </p>
 
-**Postprandial glucose-response (PPGR) prediction — XGBoost + leave-one-subject-out validation**
+# 🩸 PPGR Predictor
+
+**Postprandial glucose-response prediction — XGBoost with leave-one-subject-out validation.**
 
 [![Live demo](https://img.shields.io/badge/Live_demo-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://metanutri-ai-ppgr-predictor.streamlit.app/)
 [![CI](https://github.com/ElijahZhao/MetaNutri-Ai-ppgr-predictor/actions/workflows/ci.yml/badge.svg)](https://github.com/ElijahZhao/MetaNutri-Ai-ppgr-predictor/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![XGBoost](https://img.shields.io/badge/XGBoost-3.4-EB6E4B?style=for-the-badge)](https://xgboost.readthedocs.io/)
+[![XGBoost](https://img.shields.io/badge/XGBoost-3.4.1-EB6E4B?style=for-the-badge)](https://xgboost.readthedocs.io/)
 [![License: MIT (code)](https://img.shields.io/badge/License-MIT_(code)-yellow?style=for-the-badge)](LICENSE)
 [![License: CC BY-NC-SA 4.0 (derived data)](https://img.shields.io/badge/License-CC_BY--NC--SA_4.0_(derived_data)-lightgrey?style=for-the-badge)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 [![Parent repo](https://img.shields.io/badge/Parent-MetaNutri--AI--10b981?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ElijahZhao/MetaNutri---AI-)
-[![Parent preprint](https://img.shields.io/badge/DOI-10.21203%2Frs.3.rs--11558064%2Fv1-0ea5e9?style=for-the-badge)](https://doi.org/10.21203/rs.3.rs-11558064/v1)
+[![Preprint](https://img.shields.io/badge/DOI-10.21203%2Frs.3.rs--11558064%2Fv1-0ea5e9?style=for-the-badge)](https://doi.org/10.21203/rs.3.rs-11558064/v1)
+
+**A frozen XGBoost bundle · TreeSHAP explanations · 45 subjects · 1,557 meals · leave-one-subject-out**
 
 </div>
 
-Predicting the **2-hour postprandial glucose response (PPGR)** to a meal from its
-macronutrient composition plus a handful of subject-level clinical features.
+Predicting the **2-hour postprandial glucose response (PPGR)** to a meal from its macronutrient composition plus a handful of subject-level clinical features.
 
-Trained on [CGMacros](https://physionet.org/content/cgmacros/1.0.0/) (45 subjects,
-1,557 meals) and validated **leave-one-subject-out (LOPO)** — every prediction is
-made for a person the model has never seen.
+Trained on [CGMacros](https://physionet.org/content/cgmacros/1.0.0/) (45 subjects, 1,557 meals) and validated **leave-one-subject-out (LOPO)** — every prediction is made for a person the model has never seen.
 
-> **🎯 Headline:** LOPO breakfast — **AUC r = 0.890**, **iAUC r = 0.655**
-> (reproducing the published CGMacros baseline) · the same frozen model applied
-> to another cohort — **iAUC r = 0.23**. Why the drop? That question is the
-> [measurement-reliability preprint](https://doi.org/10.21203/rs.3.rs-11558064/v1).
+> **Headline:** LOPO breakfast — **AUC r = 0.890**, **iAUC r = 0.655**, reproducing the published CGMacros baseline. The same frozen model transferred to another cohort gives **iAUC r = 0.23**; why it drops is the subject of the [measurement-reliability preprint](https://doi.org/10.21203/rs.3.rs-11558064/v1).
 
-**Live demo:** <https://metanutri-ai-ppgr-predictor.streamlit.app/> ·
-**Parent platform (full-stack project):** <https://meta-nutri-ai.vercel.app/> ·
-source [`MetaNutri---AI-`](https://github.com/ElijahZhao/MetaNutri---AI-)
+**Live demo:** <https://metanutri-ai-ppgr-predictor.streamlit.app/> · **Parent platform:** <https://meta-nutri-ai.vercel.app/>
 
-## 🔗 The MetaNutri ecosystem (three repositories)
+## ✨ Highlights
 
-**📄 Preprint:** the measurement-reliability study behind these models is published
-from the parent repository — [DOI `10.21203/rs.3.rs-11558064/v1`](https://doi.org/10.21203/rs.3.rs-11558064/v1)
-(Research Square, v1, 2 Nov 2026, CC BY 4.0).
+- **Real predictive performance.** Breakfast LOPO AUC *r* = 0.890 and iAUC *r* = 0.655; across all meal types AUC *r* = 0.838 and iAUC *r* = 0.451.
+- **No subject leakage.** Strict leave-one-subject-out; missing values are imputed and standardised with training-fold statistics only.
+- **Cross-cohort honesty.** AUC transfers partially to BIG IDEAs (*r* = 0.569), while iAUC and peak rise collapse to ≈ 0.22 — reported rather than hidden.
+- **Exact explanations.** Per-meal TreeSHAP contributions via XGBoost `pred_contribs`.
+- **One-way provenance.** The 32 curated files are copied from the parent `research/` module and checked byte-for-byte in CI.
 
-| Repository | Role | Live |
-|---|---|---|
-| 🧬 [`MetaNutri---AI-`](https://github.com/ElijahZhao/MetaNutri---AI-) | **Parent** — full-stack platform *and* the `research/` module that trained & evaluated these models; hosts **preprint ①** | <https://meta-nutri-ai.vercel.app> |
-| 🩸 **This repository** | **Deployment shell** — Streamlit demo, regenerated one-way from the parent | <https://metanutri-ai-ppgr-predictor.streamlit.app> |
-| 🥗 [`MetaNutri-Ai-RAG`](https://github.com/ElijahZhao/MetaNutri-Ai-RAG) | **Independent research repo** — 200-item **NutriQA** benchmark over official Chinese nutrition data; hosts **preprint ②** ([DOI `10.21203/rs.3.rs-11565315/v1`](https://doi.org/10.21203/rs.3.rs-11565315/v1)) | <https://metanutri-ai-rag-question-answering.streamlit.app> |
+## 📸 Preview
 
-## 🧭 What this repository is (and is not)
+| Model comparison | Within- and between-subject skill |
+|---|---|
+| ![Model comparison](reports/figures/fig2_model_comparison.png) | ![Within- and between-subject skill](reports/figures/fig6_within_between.png) |
 
-This repo is the **demo half** of a two-repository project, and a sibling of a
-**third** repository. The parent repository,
-[`MetaNutri---AI-`](https://github.com/ElijahZhao/MetaNutri---AI-), holds the full
-project: a full-stack platform *and* the `research/` module where the models below
-were trained and evaluated. This repo holds only what the deployed demo needs.
-The sibling, [`MetaNutri-Ai-RAG`](https://github.com/ElijahZhao/MetaNutri-Ai-RAG), is an
-**independent research repository**: it is not exported from the parent — it owns its
-own data pipeline, retrieval stack, evaluation suite and published paper (NutriQA),
-and shares only the MetaNutri brand, the same underlying nutrition data sources and
-the MIT license family.
+| External validation (BIG IDEAs) | Conformal prediction intervals |
+|---|---|
+| ![External validation](reports/figures/fig5_external_validation.png) | ![Conformal intervals](reports/figures/fig7_conformal.png) |
 
-- **It is** the deployment target for Streamlit Community Cloud — self-contained
-  (`app.py` + `requirements.txt` at the root, ~2.3 MB), with models exported as
-  **JSON** so no training stack is needed at runtime.
-- **It is not** a submodule, a fork, or a mirror of the parent repo, and it is
-  **never edited independently** — it is regenerated from the parent.
-- **Flow is one way:** `MetaNutri---AI-` → this repo. Nothing flows back.
-- **They do not interact at runtime:** no API calls, no shared package, no data
-  exchange. The app loads the exported boosters and predicts locally.
-- **Why not a submodule:** Streamlit Community Cloud builds the *repository root*
-  and expects `app.py` there; a submodule would add a checkout step and a failure
-  mode to that build without removing the need for this curated subset.
+Live demo: <https://metanutri-ai-ppgr-predictor.streamlit.app/>
 
-**Source of truth.** Every number in this README (results, external validation,
-figures) is generated from the parent repo's `research/experiments/*.csv` and must
-match its [technical report](reports/technical_report.pdf). If the two disagree,
-the parent repository wins and this repo is regenerated.
-
-**Report layout.** `reports/technical_report.md` and its PDF are copied verbatim
-from the parent module, so the two copies can be compared byte-for-byte. Its §9
-refers to the pipeline as `research/`; in this deployment the same scripts sit at
-the repository root (`bash src/run_all.sh`).
-
-**Drift check.** CI runs [`scripts/check_sync.py`](scripts/check_sync.py), which
-resolves the parent repository's tree through the GitHub API and compares git blob
-SHAs for the 32 curated files. A red *Sync (parent module)* job means the parent
-moved ahead or a copy was edited here — re-copy the file, or update the script if
-the curated set itself is meant to change.
-
-## 📊 Results (LOPO, Pearson *r*)
-
-| Target | Breakfast only (n=423) | All meals (n=1,557) |
-|---|---|---|
-| **XGBoost** — 2-h AUC | **0.890** | **0.838** |
-| **XGBoost** — 2-h iAUC | **0.655** | **0.451** |
-| **XGBoost** — peak glucose rise | **0.632** | **0.542** |
-| energy-only linear — iAUC | 0.255 | 0.143 |
-| carb-only linear — iAUC | 0.107 | 0.147 |
-
-Reference baselines underperforming the model by a wide margin is the point: a
-carbohydrate count alone explains almost none of the subject-specific response.
-The breakfast-only column reproduces the CGMacros paper's own baseline
-(AUC *r* ≈ 0.89, iAUC *r* ≈ 0.64); the all-meals column is this project's
-extension to lunch, dinner and snacks.
-
-![Model comparison](reports/figures/fig2_model_comparison.png)
-
-A pooled correlation mixes two questions. Splitting it into **within-subject**
-(does the model rank a person's own meals correctly?) and **between-subject**
-(does it recover *who* responds more?) skill shows that AUC's high pooled *r* is
-driven mainly by the between-subject component, whereas iAUC's two components
-are nearly equal — making iAUC the more genuinely meal-level signal. Median-split
-ROC-AUC ranges 0.74–0.96 across targets. Full details in §4.5 of the
-[technical report](reports/technical_report.pdf).
-
-![Within- and between-subject skill](reports/figures/fig6_within_between.png)
-
-Predictions also carry **conformal intervals**. Their marginal coverage matches
-nominal (0.800 / 0.898), but the intervals are wide and under-cover a minority
-of individuals — reported honestly in §4.6 of the report.
-
-![Conformal intervals](reports/figures/fig7_conformal.png)
-
-A mixed-effects check (subject random intercept) confirms the same picture: the
-ICC is 0.69 for AUC but 0.33 for iAUC, and within a person carbohydrate raises
-while protein lowers the response. Details in §4.7 of the report.
-
-## 🌍 External validation (BIG IDEAs)
-
-The frozen CGMacros model is applied, with **no retraining**, to
-[BIG IDEAs](https://physionet.org/content/big-ideas-glycemic-wearable/1.1.2/)
-(16 subjects, 656 meals — a different CGM device, Dexcom G6, and free-living
-food logs), using only the five features shared by both datasets.
-
-| Protocol (5 shared features) | 2-h iAUC *r* | 2-h AUC *r* | Peak *r* |
-|---|---|---|---|
-| CGMacros (LOPO, internal) | 0.49 | 0.82 | 0.51 |
-| BIG IDEAs (LOPO, internal) | 0.46 | 0.63 | 0.48 |
-| **BIG IDEAs (external transfer)** | **0.23** | **0.57** | **0.22** |
-| BIG IDEAs (external, carb-only Ridge) | 0.36 | 0.29 | 0.36 |
-
-AUC transfers partially, but iAUC and peak rise collapse — and a
-carbohydrate-only Ridge regression transfers *better* on those two targets. The
-BIG IDEAs internal LOPO row shows the drop is a shift between cohorts, not noise
-in the external data. The demo exposes this read-only panel under
-"Does it generalise to another cohort?".
-
-![External validation](reports/figures/fig5_external_validation.png)
-
-## ⚙️ How it works
-
-- **Features** — meal: carbohydrate / protein / fat / fiber (g), meal-time glucose.
-  Subject: age, sex, BMI, HbA1c, fasting glucose, fasting insulin, HOMA-IR
-  (derived), triglycerides, total cholesterol, HDL, non-HDL, LDL, VLDL, Chol/HDL.
-- **Targets** — 2-h incremental AUC (positive incremental area above baseline),
-  2-h total AUC, peak glucose rise.
-- **Model** — XGBoost, one booster per target, `max_depth=1`,
-  `n_estimators=80`, `learning_rate=0.2`.
-- **Protocol** — leave-one-subject-out cross-validation. Missing features are
-  imputed with **training-fold** medians and standardised with **training-fold**
-  statistics, so no information leaks from the held-out subject.
-- **Explanations** — exact TreeSHAP values (XGBoost `pred_contribs`).
-
-## 🚀 Run the demo locally
+## 🚀 Quick start
 
 ```bash
+git clone https://github.com/ElijahZhao/MetaNutri-Ai-ppgr-predictor.git
+cd MetaNutri-Ai-ppgr-predictor
 pip install -r requirements.txt
 streamlit run app.py
 ```
 
-The app predicts the three metrics, draws an *illustrative* 2-hour curve, and
-shows per-feature TreeSHAP contributions.
+The app predicts the three scalar metrics, draws an *illustrative* 2-hour curve, and shows per-feature TreeSHAP contributions.
 
-> The models predict **scalars, not a time series**. The plotted curve is a
-> population-average gamma shape scaled to the predicted peak rise and iAUC, and
-> the UI labels it as a reconstruction rather than a model output.
+> The models predict **scalars, not a time series**. The plotted curve is a population-average gamma shape scaled to the predicted peak rise and iAUC, and the UI labels it as a reconstruction rather than a model output.
 
-## 🧪 Tests
+Run the headless smoke test:
 
 ```bash
 python test_app.py
 ```
 
-Boots `app.py` headlessly with Streamlit's own `AppTest` harness, presses
-**Predict**, and asserts that the three scalar predictions and the TreeSHAP
-panel render without exceptions — no server and no network required.
+It boots `app.py` with Streamlit's `AppTest` harness, presses **Predict**, and asserts that the three predictions and the TreeSHAP panel render — no server and no network required.
 
-## 📁 Repository layout
+## 📁 Project structure
 
 ```
 app.py                Streamlit demo
-test_app.py           headless AppTest smoke test for the demo
+test_app.py           headless AppTest smoke test
 inference.py          model loading, prediction, TreeSHAP, curve reconstruction
-model/                trained boosters + preprocessing metadata
+model/                frozen boosters + preprocessing metadata
 assets/               bundled results for the external-validation panel
-requirements.txt      demo dependencies (pinned)
+requirements.txt      pinned demo dependencies
 src/                  provenance copy of the parent's research/src/
 reports/              provenance copy of the parent's research/reports/
 experiments/          provenance copy of the parent's research/experiments/
 data/README.md        data provenance and download instructions
 ```
 
-The `src/`, `reports/` and `experiments/` trees (and `data/README.md`) are a
-**provenance copy** of the parent repo's
-[`research/`](https://github.com/ElijahZhao/MetaNutri---AI-/tree/main/research)
-module — kept so every number here can be traced to the code that produced it.
-Retraining is always run **in the parent**, from its `research/` directory; the
-commands below assume that layout:
+## 🛠️ Tech stack
+
+| Component | Choice |
+|---|---|
+| Language | Python 3.12 |
+| Demo UI | Streamlit 1.65.0 |
+| Model | XGBoost 3.4.1, one booster per target |
+| Data | NumPy 2.5.3 · pandas 3.0.6 · SciPy 1.18.1 |
+| Explanations | TreeSHAP (`pred_contribs`) |
+| Test | Streamlit `AppTest` |
+
+## ❓ FAQ
+
+<details>
+<summary><strong>Is this a medical device?</strong></summary>
+
+No. Research and portfolio use only; nothing here is medical advice.
+</details>
+
+<details>
+<summary><strong>Why is iAUC harder to predict than AUC?</strong></summary>
+
+AUC is dominated by a person's overall glucose level; iAUC isolates the meal-driven excursion above baseline, which is a smaller and noisier signal.
+</details>
+
+<details>
+<summary><strong>Why does external validation drop so much?</strong></summary>
+
+The BIG IDEAs cohort uses a different CGM device (Dexcom G6), free-living food logs and only five shared features. The [preprint](https://doi.org/10.21203/rs.3.rs-11558064/v1) argues that measurement reliability confounds the comparison.
+</details>
+
+<details>
+<summary><strong>Where is the model trained?</strong></summary>
+
+In the parent repository's `research/` module. This repo ships the frozen JSON boosters so the demo needs no training stack; if the two ever disagree, the parent wins.
+</details>
+
+<details>
+<summary><strong>Does the demo need network access?</strong></summary>
+
+No. It loads the frozen boosters locally; only the Streamlit page itself is served over the network.
+</details>
+
+## 📝 Changelog
+
+This repository is a regenerated deployment copy and does **not** maintain a separate changelog. Its contents track the parent `research/` module and are pinned at tag [`v1.0.0`](https://github.com/ElijahZhao/MetaNutri-Ai-ppgr-predictor/tree/v1.0.0); the parent's release notes are in [`MetaNutri---AI-/CHANGELOG.md`](https://github.com/ElijahZhao/MetaNutri---AI-/blob/main/CHANGELOG.md).
+
+## 🔗 The MetaNutri ecosystem
+
+| Repository | Role | Live |
+|---|---|---|
+| [`MetaNutri---AI-`](https://github.com/ElijahZhao/MetaNutri---AI-) | Parent — full-stack platform plus the `research/` module that trained and evaluated these models; hosts preprint ① | <https://meta-nutri-ai.vercel.app> |
+| **This repository** | Deployment shell — Streamlit demo, regenerated one-way from the parent | <https://metanutri-ai-ppgr-predictor.streamlit.app> |
+| [`MetaNutri-Ai-RAG`](https://github.com/ElijahZhao/MetaNutri-Ai-RAG) | Independent research repo — NutriQA benchmark over Chinese nutrition data; hosts preprint ② ([DOI `10.21203/rs.3.rs-11565315/v1`](https://doi.org/10.21203/rs.3.rs-11565315/v1)) | <https://metanutri-ai-rag-question-answering.streamlit.app> |
+
+**Flow is one way:** the parent → this repository. Nothing flows back, and the two do not interact at runtime: no API calls, no shared package, no data exchange.
+
+**Why not a submodule:** Streamlit Community Cloud builds the repository root and expects `app.py` there; a submodule would add a checkout step and a failure mode without removing the need for this curated subset.
+
+**Drift check.** CI runs [`scripts/check_sync.py`](scripts/check_sync.py), which resolves the parent tree through the GitHub API and compares git blob SHAs for the 32 curated files.
+
+## 📊 Results (LOPO, Pearson r)
+
+| Target | Breakfast only (n=423) | All meals (n=1,557) |
+|---|---|---|
+| XGBoost — 2-h AUC | **0.890** | **0.838** |
+| XGBoost — 2-h iAUC | **0.655** | **0.451** |
+| XGBoost — peak glucose rise | **0.632** | **0.542** |
+| Energy-only linear — iAUC | 0.255 | 0.143 |
+| Carb-only linear — iAUC | 0.107 | 0.147 |
+
+The breakfast column reproduces the CGMacros paper's own baseline (AUC *r* ≈ 0.89, iAUC *r* ≈ 0.64); the all-meals column extends it to lunch, dinner and snacks. The baselines underperforming by a wide margin is the point: a carbohydrate count alone explains almost none of the subject-specific response.
+
+Splitting the pooled correlation shows that AUC's high *r* is driven mainly by the between-subject component, whereas iAUC's within- and between-subject components are nearly equal — making iAUC the more genuinely meal-level signal. Median-split ROC-AUC ranges 0.74–0.96 across targets. Details in §4.5 of the [technical report](reports/technical_report.pdf).
+
+Conformal intervals reach marginal coverage close to nominal (0.800 / 0.898), but are wide and under-cover a minority of individuals (§4.6). A subject-random-intercept mixed-effects check gives ICC = 0.69 for AUC and 0.33 for iAUC (§4.7).
+
+## 🌍 External validation (BIG IDEAs)
+
+The frozen CGMacros model is applied, with **no retraining**, to [BIG IDEAs](https://physionet.org/content/big-ideas-glycemic-wearable/1.1.2/) — 16 subjects, 656 meals, a different CGM device (Dexcom G6), free-living food logs — using only the five features shared by both datasets.
+
+| Protocol (5 shared features) | 2-h iAUC r | 2-h AUC r | Peak r |
+|---|---|---|---|
+| CGMacros (LOPO, internal) | 0.49 | 0.82 | 0.51 |
+| BIG IDEAs (LOPO, internal) | 0.46 | 0.63 | 0.48 |
+| **BIG IDEAs (external transfer)** | **0.23** | **0.57** | **0.22** |
+| BIG IDEAs (external, carb-only Ridge) | 0.36 | 0.29 | 0.36 |
+
+AUC transfers partially; iAUC and peak rise collapse, and a carb-only Ridge regression transfers *better* on those two targets. The internal LOPO row shows this is a shift between cohorts, not noise in the external data. The demo exposes the panel under "Does it generalise to another cohort?".
+
+## ⚙️ How it works
+
+- **Features** — meal: carbohydrate / protein / fat / fiber (g), meal-time glucose. Subject: age, sex, BMI, HbA1c, fasting glucose, fasting insulin, HOMA-IR (derived), triglycerides, total cholesterol, HDL, non-HDL, LDL, VLDL, Chol/HDL.
+- **Targets** — 2-h incremental AUC above baseline, 2-h total AUC, peak glucose rise.
+- **Model** — XGBoost, one booster per target, `max_depth=1`, `n_estimators=80`, `learning_rate=0.2`.
+- **Protocol** — leave-one-subject-out. Missing features are imputed with training-fold medians and standardised with training-fold statistics, so no information leaks from the held-out subject.
+- **Explanations** — exact TreeSHAP values.
+
+## 🔁 Retraining and reproduction
+
+The `src/`, `reports/` and `experiments/` trees are a provenance copy of the parent's [`research/`](https://github.com/ElijahZhao/MetaNutri---AI-/tree/main/research) module. Retraining always runs **in the parent**, from its `research/` directory:
 
 ```bash
-bash src/run_all.sh --skip-download   # data → results → figures → PDF, one command
+bash src/run_all.sh --skip-download   # data → results → figures → PDF
 ```
 
-or run the steps individually:
+Or step by step:
 
 ```bash
 python src/download_data.py      # fetch CGMacros (~627 MB)
@@ -223,12 +202,10 @@ python src/train_final.py        # export the deployable models
 
 ## 📌 How to cite
 
-Preprint (Research Square, v1, 2 Nov 2026, **CC BY 4.0**):
-[`10.21203/rs.3.rs-11558064/v1`](https://doi.org/10.21203/rs.3.rs-11558064/v1) ·
-[PDF in the parent repository](https://github.com/ElijahZhao/MetaNutri---AI-/blob/main/preprint/2026-11-02_measurement-reliability-ppgr_preprint_v1.pdf)
+Preprint (Research Square, v1, 2 November 2026, **CC BY 4.0**):
+[`10.21203/rs.3.rs-11558064/v1`](https://doi.org/10.21203/rs.3.rs-11558064/v1) · [PDF in the parent repository](https://github.com/ElijahZhao/MetaNutri---AI-/blob/main/preprint/2026-11-02_measurement-reliability-ppgr_preprint_v1.pdf)
 
-This repository ships a [`CITATION.cff`](CITATION.cff), so GitHub's *Cite this repository* button
-offers the preprint directly.
+This repository ships a [`CITATION.cff`](CITATION.cff), so GitHub's *Cite this repository* button offers the preprint directly.
 
 ```bibtex
 @misc{zhao2026ppgr,
@@ -244,34 +221,18 @@ offers the preprint directly.
 
 ## 📄 Data and license
 
-**Licensing is layered — see [NOTICE.md](NOTICE.md).** Code (`app.py`,
-`inference.py`, `src/`, `test_app.py`) is **MIT**. Everything computed from the
-datasets (`model/*.json`, `experiments/*.csv`, `assets/*`, `reports/*`) is
-**CC BY-NC-SA 4.0**. The repository-level [LICENSE](LICENSE) file is the MIT
-text and covers the code layer only.
+**Licensing is layered — see [NOTICE.md](NOTICE.md).** Code (`app.py`, `inference.py`, `src/`, `test_app.py`) is **MIT**. Everything computed from the datasets (`model/*.json`, `experiments/*.csv`, `assets/*`, `reports/*`) is **CC BY-NC-SA 4.0**. The repository-level [LICENSE](LICENSE) file is the MIT text and covers the code layer only.
 
-[CGMacros](https://physionet.org/content/cgmacros/1.0.0/) — PhysioNet,
-DOI [10.13026/3z8q-x658](https://doi.org/10.13026/3z8q-x658), licensed
-**CC BY-NC-SA 4.0**. The raw data is **not** redistributed here; `src/download_data.py`
-fetches it. Models derived from it are distributed under the same license, with
-attribution to the original authors.
+[CGMacros](https://physionet.org/content/cgmacros/1.0.0/) — PhysioNet, DOI [10.13026/3z8q-x658](https://doi.org/10.13026/3z8q-x658), **CC BY-NC-SA 4.0**. Raw data is not redistributed here; `src/download_data.py` fetches it. Models derived from it are distributed under the same license, with attribution.
 
-External validation uses
-[BIG IDEAs](https://physionet.org/content/big-ideas-glycemic-wearable/1.1.2/) —
-PhysioNet, DOI [10.13026/zthx-5212](https://doi.org/10.13026/zthx-5212), licensed
-**ODC-By 1.0** (attribution).
+External validation uses [BIG IDEAs](https://physionet.org/content/big-ideas-glycemic-wearable/1.1.2/) — PhysioNet, DOI [10.13026/zthx-5212](https://doi.org/10.13026/zthx-5212), **ODC-By 1.0**.
 
 ## ⚠️ Limitations
 
-- Small cohort (45 subjects) with a narrow demographic range; held-out
-  performance on unseen subjects is much lower than within-subject performance.
-- iAUC is substantially harder to predict than AUC — AUC is dominated by a
-  person's overall glucose level, while iAUC isolates the meal-driven excursion.
-- **External validation is modest**: AUC transfers across cohorts (r ≈ 0.57),
-  but iAUC and peak rise do not (r ≈ 0.22), and a carb-only baseline transfers
-  better on those two targets.
-- The illustrative curve is a visual aid and is **not** a validated forecast of
-  the response shape.
+- Small cohort (45 subjects) with a narrow demographic range; held-out performance on unseen subjects is much lower than within-subject performance.
+- iAUC is substantially harder to predict than AUC.
+- **External validation is modest:** AUC transfers (*r* ≈ 0.57), but iAUC and peak rise do not (*r* ≈ 0.22), and a carb-only baseline transfers better on those targets.
+- The illustrative curve is a visual aid, not a validated forecast of the response shape.
 - **Not a medical device.** Research and portfolio use only.
 
-**Development note.** AI coding tools were used as assistants while this project and its parent repository were implemented — chiefly for scaffolding, refactoring and documentation. The research design, experiments, evaluation and final review are the author's own, and AI-generated output was reviewed and adapted before being merged rather than accepted as-is.
+**Development note.** AI coding tools assisted with scaffolding, refactoring and documentation. Research design, experiments, evaluation and final review are the author's own; generated output was reviewed and adapted before merging.
